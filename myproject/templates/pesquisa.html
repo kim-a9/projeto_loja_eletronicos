@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesquisa de Estoque</title>
 </head>
 <body>
-    
+{% extends "index.html" %}
 
+{% block content %}
 
-    
+<form action="" method="">
+    <label for="pesquisa">Pesquisa:</label>
+    <input type="text" id="pesquisa" name="pesquisa">
+    <input type="submit" value="Search">
+  </form>
+
+<ul id="resultado_pesquisa">
+    <!--- resultados da pesquisa serão exibidos aqui, a implementar --->
+    {% for produto in produtos %}
+    <li>{{ produto.nome }} - {{ produto.quantidade }}</li>
+    {% endfor %}
+
+</ul>
+{% endblock %}
 </body>
 </html>
