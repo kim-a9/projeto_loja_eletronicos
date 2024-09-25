@@ -1,0 +1,29 @@
+quando clonar o repo....
+
+1- cria o ambiente virtual
+
+python -m venv venv
+
+2- logo apos ative
+
+venv\Scripts\activate
+
+3- faça instalação dos requerimentos....
+
+
+pip install -r requirements.txt
+
+
+4- verifique a instalação 
+
+pip freeze
+
+
+6- execute o projeto.
+
+flask run
+
++++ siga esses passos que vai dar certo.
+
+As alterações feitas vão ficar no git.
+

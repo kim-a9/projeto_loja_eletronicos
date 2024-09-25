@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+</head>
+<body>
+    <h1>Cadastro de Produtos</h1>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.produto.label }}<br>
+            {{ form.produto(size=20) }}
+        </p>
+        <p>
+            {{ form.quantidade.label }}<br>
+            {{ form.quantidade(size=20) }}
+        </p>
+        <p>
+            {{ form.preco.label }}<br>
+            {{ form.preco(size=20) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</body>
+</html>
