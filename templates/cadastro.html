@@ -7,23 +7,30 @@
 </head>
 <body>
 
-    <h1>Cadastro de Produtos</h1>
+    <h1>Adicionar Produto</h1>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
+        <p>
+            {{ form.codigo.label }}<br>
+            {{ form.codigo(size=20) }}
+        </p>
         <p>
             {{ form.produto.label }}<br>
             {{ form.produto(size=20) }}
         </p>
         <p>
-            {{ form.quantidade.label }}<br>
-            {{ form.quantidade(size=20) }}
+            {{ form.categoria.label }}<br>
+            {{ form.categoria(size=20) }}
         </p>
         <p>
-            {{ form.preco.label }}<br>
-            {{ form.preco(size=20) }}
-        </p>
+            {{ form.quantidade.label }}<br>
+            {{ form.quantidade(size=20) }}
+        </p> <br>
         <p>{{ form.submit() }}</p>
     </form>
+
+
+
 </body>
 </html>
 
