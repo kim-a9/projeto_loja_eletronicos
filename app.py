@@ -10,16 +10,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('/index.html')
 
-@app.route("/cadastro", methods =['GET', 'POST'])
+@app.route("/cadastro.html", methods =['GET', 'POST'])
 def cadastro():
     form = CadastroForm()
     if form.is_submitted():
        flash('Produto cadastrado!')
-       return redirect(url_for('index.html'))
-    return render_template('cadastro.html', form=form)
-
+       return redirect(url_for('/index.html'))
+    return render_template('/cadastro.html', form=form)
 
 
 
