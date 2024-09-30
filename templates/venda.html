@@ -3,41 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendas</title>
+    <title>Venda</title>
 </head>
 <body>
-{% extends "index.html" %}
 
-{% block content %}
-
-    <h1>Venda</h1>
-    <form action="" method=""ss>
+    <h1>Registrar Venda</h1>
+    <form action="" method="post">
         <p>
             {{form.codigo.label}} <br>
-            {{form.codigo(size=20)}}
+            {{form.codigo(size=15)}}
         </p>
         <p>
             {{form.codigoprod.label}} <br>
-            {{form.codigoprod(size=20)}}
+            {{form.codigoprod(size=15)}} 
         </p>
         <p>
-            {{form.nomeprod.label}} <br>
-            {{form.nomeprod(size=20)}}
+            {{form.produto.label}} <br>
+            {{form.produto(size=20)}}
         </p>
         <p>
             {{form.quantidade.label}} <br>
-            {{form.quantidade(size=20)}}
+            {{form.quantidade(size=15)}}
         </p>
-
+        <br>
         <p>{{form.submit()}}</p>
 
     </form>
 
-
-{% endblock %}
     
-
-
-
 </body>
 </html>

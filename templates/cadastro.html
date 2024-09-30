@@ -11,8 +11,8 @@
     <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.codigo.label }}<br>
-            {{ form.codigo(size=20) }}
+            {{ form.codigoprod.label }}<br>
+            {{ form.codigoprod(size=15) }}
         </p>
         <p>
             {{ form.produto.label }}<br>
@@ -24,7 +24,7 @@
         </p>
         <p>
             {{ form.quantidade.label }}<br>
-            {{ form.quantidade(size=20) }}
+            {{ form.quantidade(size=15) }}
         </p> <br>
         <p>{{ form.submit() }}</p>
     </form>
