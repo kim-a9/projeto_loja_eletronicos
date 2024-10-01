@@ -8,7 +8,7 @@
 <body>
 
     <h1>Pesquisa de Produtos</h1>
-    <form action="" method="get">
+    <form action="" method="post">
         <label for="pesquisa_codigo">Pesquisar por nome do produto: </label>
         <input type="text" name="pesquisa">
         <label for="buscar">Buscar</label>
@@ -27,6 +27,14 @@
         <tr>
             <td>{{ produto.codigo }}</td>
             <td>{{ produto.nome }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>
+                <a href="{{ url_for('main.editar_produto')}}">Editar Produto</a>
+                <!-- <form method="post" action="{{ url_for(main.excluir_produto)}}" onsubmit="return confirm('Deseja excluir este produto?')"> -->
+                    <button type="submit" class="btn btn-danger">excluir produto</button>
+                
+                </form>
+            </td>
         </tr>
       
         {% endfor %} 
