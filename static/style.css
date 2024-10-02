@@ -1,0 +1,13 @@
+.resultado_pesquisa {
+    display: block;
+    align-content: center;
+}
+
+th{
+    display: table-cell;
+    vertical-align: inherit;
+}
+td{
+    display: table-cell;
+    vertical-align: inherit;
+}
