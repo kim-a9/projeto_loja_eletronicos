@@ -1,10 +1,10 @@
-# from . import db
+from . import db
 
-# class CadastroProduto(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     codigoprod = db.Column(db.Integer, nullable=False, unique=True)
-#     produto = db.Column(db.String, nullable=False)
-#     categoria  = db.Column(db.String(100), nullable=False)
-#     quantidade = db.Column(db.Integer, nullable=False)
+class CadastroProduto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    codigoprod = db.Column(db.Integer, nullable=False, unique=True)
+    produto = db.Column(db.String(100), nullable=False)
+    categoria  = db.Column(db.String(100), nullable=False)
+    quantidade = db.Column(db.Integer)
 
-#class Vendas(db.Model):
+

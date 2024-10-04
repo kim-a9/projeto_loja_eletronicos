@@ -12,6 +12,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'admin123'
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///projeto_loja_eletronicos.db'
     # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # db.init_app(app)
 
     from routes import bp
     app.register_blueprint(bp)

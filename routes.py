@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
 from forms import CadastroForm, VendasForm
+from schemas import CadastroProdutoSchema, EditarProdutoSchema
 # from models import CadastroProduto, Vendas
 # from . import db
 
@@ -13,6 +14,7 @@ def home():
 
 
 @bp.route("/cadastro", methods=['GET', 'POST'])
+# @bp.response(200, CadastroProdutoSchema)
 def cadastro():
     form = CadastroForm()
     if form.is_submitted() and form.validate():
@@ -73,7 +75,7 @@ def editar_produto():
     #     except KeyError:
     #         abort(400, message="Erro ao atualizar produtos. Por favor, verifique os campos preenchidos.")
     #         return render_template("editar_produto.html", form=form, produto=produto)
-    return render_template("editar_produto.html", form=form, produto=produto)
+    return render_template("editar_produto.html")
 
 @bp.route("/excluir/", methods=["POST"])
 def excluir():
