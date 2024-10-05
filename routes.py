@@ -3,6 +3,7 @@ from flask_smorest import abort
 from forms import CadastroForm, VendasForm
 from schemas import CadastroProdutoSchema, EditarProdutoSchema
 from models import CadastroProduto
+# import db
 
 
 bp = Blueprint('main', __name__)
@@ -14,51 +15,51 @@ def home():
 
 @bp.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
-    # form = CadastroForm()
-    # if form.is_submitted() and form.validate():
-    #     try: 
-    #         codigoprod = form.codigoprod.data
-    #         produto = form.produto.data
-    #         categoria = form.categoria.data
-    #         quantidade = form.quantidade.data
+    form = CadastroForm()
+    if form.is_submitted() and form.validate():
+        try: 
+            codigoprod = form.codigoprod.data
+            produto = form.produto.data
+            categoria = form.categoria.data
+            quantidade = form.quantidade.data
 
-    #         if CadastroProduto.query.filter_by(produto=produto).first(): 
-    #             abort(400, message='Este produto já foi cadastrado.')
-    #             return redirect(url_for("main.cadastro"))
+            if CadastroProduto.query.filter_by(produto=produto).first(): 
+                abort(400, message='Este produto já foi cadastrado.')
+                return redirect(url_for("main.cadastro"))
 
-    #         cadastro = CadastroProduto(
-    #             codigoprod=codigoprod,
-    #             produto=produto,
-    #             categoria=categoria,
-    #             quantidade=quantidade
-    #         )
+            cadastro = CadastroProduto(
+                codigoprod=codigoprod,
+                produto=produto,
+                categoria=categoria,
+                quantidade=quantidade
+            )
 
-    #         db.session.add(cadastro)
-    #         db.session.commit()
+            # db.session.add(cadastro)
+            # db.session.commit()
 
-    #         flash('Produto cadastrado com sucesso!')
-    #         return redirect(url_for('home'))
-    #     except KeyError:
-    #         abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
+            flash('Produto cadastrado com sucesso!')
+            return redirect(url_for('main.home'))
+        except KeyError:
+            abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
 
     return render_template("cadastro.html", form=form)
 
 @bp.route("/pesquisa", methods=['GET', 'POST'])
-@bp.response(200, CadastroProdutoSchema(many=True))
+# @bp.response(200, CadastroProdutoSchema(many=True))
 def pesquisa():
-    try:
-        if request.method == 'POST': 
-            produtos = CadastroProduto.query.all()
-            if not produtos:
-                abort(400, message='Nenhum produto cadastrado ainda!')
-            return redirect(url_for('pesquisa'))
-        return render_template('pesquisa', produtos=produtos)
-    except KeyError:
-        abort(404, description='Produto não encontrado. Verifique os campos preenchidos')
+    # try:
+    #     if request.method == 'POST': 
+    #         produtos = CadastroProduto.query.all()
+    #         if not produtos:
+    #             abort(400, message='Nenhum produto cadastrado ainda!')
+    #         return redirect(url_for('pesquisa'))
+    #     return render_template('pesquisa', produtos=produtos)
+    # except KeyError:
+    #     abort(404, description='Produto não encontrado. Verifique os campos preenchidos')
     return render_template('pesquisa.html')
 
 @bp.route("/editar_produto/<int:id>", methods=["GET", "POST"])
-@bp.response(200, CadastroProdutoSchema ,EditarProdutoSchema)
+# @bp.response(200, CadastroProdutoSchema ,EditarProdutoSchema)
 def editar_produto(id):
     # produto = CadastroProduto.query.get(id)
     # form = CadastroForm(produto)
