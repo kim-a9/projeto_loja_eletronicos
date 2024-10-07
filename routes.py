@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
 from forms import CadastroForm, VendasForm
-from schemas import CadastroProdutoSchema, EditarProdutoSchema
-from models import CadastroProduto
+# from schemas import CadastroProdutoSchema, EditarProdutoSchema
+# from models import CadastroProduto
 # import db
 
 
@@ -23,16 +23,16 @@ def cadastro():
             categoria = form.categoria.data
             quantidade = form.quantidade.data
 
-            if CadastroProduto.query.filter_by(produto=produto).first(): 
-                abort(400, message='Este produto já foi cadastrado.')
-                return redirect(url_for("main.cadastro"))
+            # if CadastroProduto.query.filter_by(produto=produto).first(): 
+            #     abort(400, message='Este produto já foi cadastrado.')
+            #     return redirect(url_for("main.cadastro"))
 
-            cadastro = CadastroProduto(
-                codigoprod=codigoprod,
-                produto=produto,
-                categoria=categoria,
-                quantidade=quantidade
-            )
+            # cadastro = CadastroProduto(
+            #     codigoprod=codigoprod,
+            #     produto=produto,
+            #     categoria=categoria,
+            #     quantidade=quantidade
+            # )
 
             # db.session.add(cadastro)
             # db.session.commit()
