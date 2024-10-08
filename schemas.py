@@ -8,8 +8,8 @@ class CadastroProdutoSchema(Schema):
     quantidade = fields.Int(dump_only=True)
 
 class EditarProdutoSchema(Schema):
-    codigoproduto = fields.Int(required=True)
-    produto = fields.Str(required=True)
-    categoria = fields.Str()
-    quantidade = fields.Int()
+    editar_codigoprod = fields.Int(required=True)
+    editar_produto = fields.Str(required=True)
+    editar_categoria = fields.Str()
+    editar_quantidade = fields.Int()
 
