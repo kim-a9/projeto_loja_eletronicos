@@ -23,3 +23,5 @@ class VendasForm(FlaskForm):
     qtd = IntegerField('Quantidade:', validators=[DataRequired()])
     submit = SubmitField('Registrar Venda')
 
+
+

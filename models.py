@@ -1,5 +1,6 @@
 import db
 
+
 class CadastroProduto(db.Model):
     __tablename__ = 'cadastro_produto'
 

@@ -12,4 +12,3 @@ class EditarProdutoSchema(Schema):
     editar_produto = fields.Str(required=True)
     editar_categoria = fields.Str()
     editar_quantidade = fields.Int()
-

@@ -4,7 +4,6 @@ from flask_smorest import Api
 from flask_migrate import Migrate
 
 
-
 def create_app(db_url=None):
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'admin123'

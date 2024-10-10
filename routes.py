@@ -44,7 +44,6 @@ def cadastro():
     return render_template("cadastro.html", form=form)
 
 @bp.route("/pesquisa", methods=['GET', 'POST'])
-# @bp.response(200, CadastroProdutoSchema(many=True))
 def pesquisa():
     # try:
     #     if request.method == 'POST': 
@@ -58,7 +57,6 @@ def pesquisa():
     return render_template('pesquisa.html')
 
 @bp.route("/editar_produto/<int:id>", methods=["GET", "POST"])
-# @bp.response(200, CadastroProdutoSchema ,EditarProdutoSchema)
 def editar_produto(id):
     produto = CadastroProduto.query.get(id)
     form = EditarProdutoForm(produto)
