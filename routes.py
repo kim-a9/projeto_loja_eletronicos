@@ -3,7 +3,7 @@ from flask_smorest import abort
 import sqlite3 as sql
 from forms import CadastroForm, EditarProdutoForm, VendasForm
 # from schemas import CadastroProdutoSchema, EditarProdutoSchema
-from models import CadastroProduto
+# from models import CadastroProduto
 
 
 bp = Blueprint('main', __name__)
@@ -22,16 +22,16 @@ def cadastro():
             categoria = form.categoria.data
             quantidade = form.quantidade.data
 
-            if CadastroProduto.query.filter_by(produto=produto).first(): 
-                abort(400, message='Este produto já foi cadastrado.')
-                return redirect(url_for("main.cadastro"))
+            # if CadastroProduto.query.filter_by(produto=produto).first(): 
+            #     abort(400, message='Este produto já foi cadastrado.')
+            #     return redirect(url_for("main.cadastro"))
 
-            cadastro = CadastroProduto(
-                codigoprod=codigoprod,
-                produto=produto,
-                categoria=categoria,
-                quantidade=quantidade
-            )
+            # cadastro = CadastroProduto(
+            #     codigoprod=codigoprod,
+            #     produto=produto,
+            #     categoria=categoria,
+            #     quantidade=quantidade
+            # )
 
             db.session.add(cadastro)
             db.session.commit()
@@ -58,7 +58,7 @@ def pesquisa():
 
 @bp.route("/editar_produto/<int:id>", methods=["GET", "POST"])
 def editar_produto(id):
-    produto = CadastroProduto.query.get(id)
+    # produto = CadastroProduto.query.get(id)
     form = EditarProdutoForm(produto)
     if produto and request.method == 'POST':
         produto.codigoprod = form.codigoprod.data
@@ -80,12 +80,12 @@ def editar_produto(id):
         categoria = form.categoria.data
         quantidade = form.quantidade.data
 
-        cadastro = CadastroProduto(
-            codigoprod=codigoprod,
-            produto=produto,
-            categoria=categoria,
-            quantidade=quantidade
-        )
+        # cadastro = CadastroProduto(
+        #     codigoprod=codigoprod,
+        #     produto=produto,
+        #     categoria=categoria,
+        #     quantidade=quantidade
+        # )
         try:
             db.session.add(cadastro)
             db.session.commit()
