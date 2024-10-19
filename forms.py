@@ -5,14 +5,14 @@ from wtforms.validators import DataRequired
 class CadastroForm(FlaskForm):
     codigoprod = IntegerField('Código:', validators=[DataRequired()])
     produto = StringField('Produto:', validators=[DataRequired()])
-    categoria = StringField('Categoria:', validators=[DataRequired()])
+    categoria = StringField('Categoria:')
     quantidade = IntegerField('Quantidade:')
     submit = SubmitField('Cadastrar')
 
 class EditarProdutoForm(FlaskForm):
     editar_codigoprod = IntegerField('Código', validators=[DataRequired()])
     editar_produto = StringField('Produto: ', validators=[DataRequired()])
-    editar_categoria = StringField('Categoria: ',  validators=[DataRequired()])
+    editar_categoria = StringField('Categoria: ')
     editar_quantidade = IntegerField('Quantidade: ', validators={DataRequired()})
     submit = SubmitField('Editar')
 
