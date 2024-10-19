@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
 from forms import CadastroForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
-from . import db
+from db import db
 # from schemas import CadastroProdutoSchema, EditarProdutoSchema
 
 

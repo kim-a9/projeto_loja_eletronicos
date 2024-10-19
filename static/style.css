@@ -1,13 +1,11 @@
-.resultado_pesquisa {
-    display: block;
-    align-content: center;
+body {
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
 }
-
-th{
-    display: table-cell;
-    vertical-align: inherit;
+h1, h2, h3 {
+    color: #444444;
 }
-td{
-    display: table-cell;
-    vertical-align: inherit;
+a{
+    color: white;
 }

@@ -20,12 +20,6 @@ def create_app(db_url=None):
     migrate = Migrate(app, db)
      
 
-    # db.init_app(app)
-    migrate.init_app(app, db)
-
-    # with app.app_context():
-    #     from .models import CadastroProduto
-    #     db.create_all()
 
 
     from routes import bp
