@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Alterar produto</title>
 </head>
 <body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container"> <p class="Main">Estokey</p> </div>
+    </header>
+    <div class="container-content">
     <h1>Alterar Produto</h1>
+    <br><br>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
@@ -24,9 +31,10 @@
         <p>
             {{ form.quantidade.label }}<br>
             {{ form.quantidade(size=20) }}
-        </p> <br>
+        </p>
+        <br><br>
         <button type ="submit">Alterar</button>
     </form>
-
+</div>
 </body>
 </html>

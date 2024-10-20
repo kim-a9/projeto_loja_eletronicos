@@ -7,8 +7,12 @@
     <title>Loja</title>
 </head>
 <body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div> <p class="Main">Estokey</p> </div>
+    </header>
+    <div class="container-content">
 
-    <h1>Loja de Produtos</h1>
     <p><a href="{{ url_for('main.cadastro') }}">Cadastro de Produtos</a></p> <br>
     
     <p><a href="{{ url_for('main.pesquisa') }}">Pesquisa de Produtos</a></p> <br>
@@ -17,6 +21,6 @@
 
     <p><a href="{{ url_for('main.relatorio') }}">Relatório</a></p> <br>
 
-    
+    </div>    
 </body>
 </html>

@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
 from forms import CadastroForm, EditarProdutoForm, VendasForm
-from models import CadastroProduto
-from db import db
+# from models import CadastroProduto
+# from db import db
 # from schemas import CadastroProdutoSchema, EditarProdutoSchema
 
 
@@ -15,31 +15,31 @@ def home():
 @bp.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
     form = CadastroForm()
-    if form.is_submitted() and form.validate():
-        try: 
-            codigoprod = form.codigoprod.data
-            produto = form.produto.data
-            categoria = form.categoria.data
-            quantidade = form.quantidade.data
+    # if form.is_submitted() and form.validate():
+    #     try: 
+    #         codigoprod = form.codigoprod.data
+    #         produto = form.produto.data
+    #         categoria = form.categoria.data
+    #         quantidade = form.quantidade.data
 
-            if CadastroProduto.query.filter_by(produto=produto).first(): 
-                abort(400, message='Este produto já foi cadastrado.')
-                return redirect(url_for("main.cadastro"))
+    #         if CadastroProduto.query.filter_by(produto=produto).first(): 
+    #             abort(400, message='Este produto já foi cadastrado.')
+    #             return redirect(url_for("main.cadastro"))
 
-            cadastro = CadastroProduto(
-                codigoprod=codigoprod,
-                produto=produto,
-                categoria=categoria,
-                quantidade=quantidade
-            )
+    #         cadastro = CadastroProduto(
+    #             codigoprod=codigoprod,
+    #             produto=produto,
+    #             categoria=categoria,
+    #             quantidade=quantidade
+    #         )
 
-            db.session.add(cadastro)
-            db.session.commit()
+    #         db.session.add(cadastro)
+    #         db.session.commit()
 
-            flash('Produto cadastrado com sucesso!')
-            return redirect(url_for('main.home'))
-        except KeyError:
-            abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
+    #         flash('Produto cadastrado com sucesso!')
+    #         return redirect(url_for('main.home'))
+    #     except KeyError:
+    #         abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
 
     return render_template("cadastro.html", form=form)
 
