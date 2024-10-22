@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
-from forms import CadastroForm, EditarProdutoForm, VendasForm
+from forms import CadastroForm, PesquisaForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
 from app import db
 
@@ -48,16 +48,13 @@ def cadastro():
 
 @bp.route("/pesquisa", methods=['GET', 'POST'])
 def pesquisa():
-    # try:
-    #     if request.method == 'POST': 
-    #         produtos = CadastroProduto.query.all()
-    #         if not produtos:
-    #             abort(400, message='Nenhum produto cadastrado ainda!')
-    #         return redirect(url_for('pesquisa'))
-    #     return render_template('pesquisa')
-    # except KeyError:
-    #     abort(404, description='Produto não encontrado. Verifique os campos preenchidos')
-    return render_template('pesquisa.html')
+    form = PesquisaForm()
+    if request.method == 'POST': 
+        produtos = CadastroProduto.query.all()
+        if not produtos:
+            flash(400, message='Nenhum produto cadastrado ainda!')
+            return redirect(url_for('main.pesquisa'))
+    return render_template('pesquisa.html', form=form)
 
 @bp.route("/editar_produto/<int:id>", methods=["GET", "POST"])
 def editar_produto(id):

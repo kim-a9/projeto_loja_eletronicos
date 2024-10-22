@@ -11,47 +11,49 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
           <div class="container"> <p class="Main">Estokey</p> </div>
     </header>
-    <div class="container-content">
+    <!-- <div class="container-content"> -->
         <h1>Pesquisa de Produtos</h1>
         <br>
-        <form class="" action="" method="post">
-            <label for="pesquisa_codigo">Pesquisar por nome do produto: </label>
+        <form class="" action="" method="POST">
+            <p>
+                {{ form.produto.label }}<br>
+                {{ form.produto(size=15) }}
+            </p>
+            <p>{{ form.submit() }}</p>
+            <!-- <label for="pesquisa_codigo">Pesquisar por nome do produto: </label>
             <input type="text" name="pesquisa">
-            <!-- <label for="buscar"></label> -->
-            <input type="submit" value="Buscar">
+            <input type="submit" value="Buscar"> -->
         </form>
         <br><br>
-        <br><br>
-        <br><br>
-        <table class="resultado-pesquisa">
-            <thead>
-                <tr>
-                    <th>Código</th> <th>Produto</th> <th>Quantidade</th>
-                </tr>
-            </thead>
-            <tbody>
-            <!--- resultados da pesquisa serão exibidos aqui, a implementar --->
-            {% for produto in produtos %}
-            <tr>
-                <td>{{ produto.codigo }}</td>
-                <td>{{ produto.nome }}</td>
-                <td>{{ produto.quantidade }}</td>
-                <td>
-                    <div class="editar_produto">
-                    <a href="{{ url_for('main.editar_produto')}}">Editar Produto</a>
-                    
-                    <!-- <form method="post" action="{{ url_for(main.excluir_produto)}}" onsubmit="return confirm('Deseja excluir este produto?')"> -->
-                        <button type="submit" class="btn btn-danger">Excluir Produto</button>
-                    </div>
-                    </form>
-                </td>
-            </tr>
-    </div>
-        {% endfor %} 
-        </tbody>
-        
-    </table>
 
+    <table class="resultado-pesquisa">
+        <thead>
+            <tr>
+                <th>Código</th> <th>Produto</th> <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if produtos %}
+                {% for p in produtos %}
+                    <tr>
+                        <td>{{ p.codigoprod }}</td>
+                        <td>{{ p.produto }}</td>
+                        <td>{{ p.quantidade }}</td>
+                        <td>
+                            <div class="editar_produto">
+                            <a href="{{ url_for('main.editar_produto')}}">Editar Produto</a>
+                                <form method="post" action="{{ url_for(main.excluir_produto)}}" onsubmit="return confirm('Deseja excluir este produto?')">
+                                    <button type="submit" class="btn btn-danger">Excluir Produto</button>
+                                </form>
+                            </div>   
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %} 
+        </tbody>
+    </table>
+         
+<!-- </div>  -->
 
 </body>
 </html>
