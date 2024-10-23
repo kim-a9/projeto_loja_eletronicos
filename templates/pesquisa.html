@@ -14,18 +14,14 @@
     <!-- <div class="container-content"> -->
         <h1>Pesquisa de Produtos</h1>
         <br>
-        <form class="" action="" method="POST">
-            <p>
-                {{ form.produto.label }}<br>
-                {{ form.produto(size=15) }}
-            </p>
-            <p>{{ form.submit() }}</p>
+        
+            
             <!-- <label for="pesquisa_codigo">Pesquisar por nome do produto: </label>
             <input type="text" name="pesquisa">
             <input type="submit" value="Buscar"> -->
         </form>
         <br><br>
-
+        
     <table class="resultado-pesquisa">
         <thead>
             <tr>
@@ -41,10 +37,10 @@
                         <td>{{ p.quantidade }}</td>
                         <td>
                             <div class="editar_produto">
-                            <a href="{{ url_for('main.editar_produto')}}">Editar Produto</a>
-                                <form method="post" action="{{ url_for(main.excluir_produto)}}" onsubmit="return confirm('Deseja excluir este produto?')">
+                            <a href="{{ url_for('main.editar_produto', id=p.id)}}">Editar Produto</a>
+                                <!-- <form method="post" action="{{ url_for('main.excluir_produto', id=p.id)}}" onsubmit="return confirm('Deseja excluir este produto?')">
                                     <button type="submit" class="btn btn-danger">Excluir Produto</button>
-                                </form>
+                                </form> -->
                             </div>   
                         </td>
                     </tr>
@@ -52,8 +48,8 @@
             {% endif %} 
         </tbody>
     </table>
-         
-<!-- </div>  -->
+          
+</div> 
 
 </body>
 </html>

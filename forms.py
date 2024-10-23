@@ -14,10 +14,10 @@ class PesquisaForm(FlaskForm):
     submit = SubmitField('Buscar')
 
 class EditarProdutoForm(FlaskForm):
-    editar_codigoprod = IntegerField('Código', validators=[DataRequired()])
-    editar_produto = StringField('Produto: ', validators=[DataRequired()])
-    editar_categoria = StringField('Categoria: ')
-    editar_quantidade = IntegerField('Quantidade: ', validators={DataRequired()})
+    codigoprod = IntegerField('Código')
+    produto = StringField('Produto: ', validators=[DataRequired()])
+    categoria = StringField('Categoria: ')
+    quantidade = IntegerField('Quantidade: ', validators={DataRequired()})
     submit = SubmitField('Editar')
 
 class VendasForm(FlaskForm):

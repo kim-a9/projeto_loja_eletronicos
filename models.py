@@ -8,3 +8,6 @@ class CadastroProduto(db.Model):
     produto = db.Column(db.String(100), nullable=False)
     categoria = db.Column(db.String(50))
     quantidade = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f"CadastroProduto('{self.codigoprod}', '{self.produto}', '{self.quantidade}')"
