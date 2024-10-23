@@ -66,10 +66,6 @@ def editar_produto(id):
         produto.categoria = form.categoria.data
         produto.quantidade = form.quantidade.data
 
-        if CadastroProduto.query.filter_by(produto=produto).first(): 
-                abort(400, message='Este produto já foi cadastrado.')
-                return redirect(url_for("main.editar_produto"))
-
         try:
             db.session.commit()
             flash('Produto editado!')
@@ -77,35 +73,37 @@ def editar_produto(id):
         except KeyError:
             abort(400, message="Erro ao atualizar produto. Por favor, verifique os campos preenchidos.")
             return render_template("editar_produto.html", form=form, produto=produto)
+        
                             #upsert. Se um produto já existe, ele é atualizado. Se não, ele é criado.
-    if not produto:
-        codigoprod = form.codigoprod.data
-        produto = form.produto.data
-        categoria = form.categoria.data
-        quantidade = form.quantidade.data
+    # if CadastroProduto.query.filter_by(produto=produto).first() != form.produto.data:
+    #     try:
+    #         codigoprod = form.codigoprod.data
+    #         produto = form.produto.data
+    #         categoria = form.categoria.data
+    #         quantidade = form.quantidade.data
 
-        cadastro = CadastroProduto(
-            codigoprod=codigoprod,
-            produto=produto,
-            categoria=categoria,
-            quantidade=quantidade
-        )
-        try:
-            db.session.add(cadastro)
-            db.session.commit()
-            flash('Novo produto cadastrado!')
-            return redirect(url_for("main.pesquisa"))
-        except KeyError:
-            abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
+    #         cadastro = CadastroProduto(
+    #             codigoprod=codigoprod,
+    #             produto=produto,
+    #             categoria=categoria,
+    #             quantidade=quantidade
+    #         )
+    #         db.session.add(cadastro)
+    #         db.session.commit()
+    #         flash('Novo produto cadastrado!')
+    #         return redirect(url_for("main.pesquisa"))
+    #     except KeyError:
+    #         abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
     return render_template("editar_produto.html", form=form, produto=produto)
 
 @bp.route("/excluir/<int:id>", methods=["POST"])
-def excluir(id):
-    produto = CadastroProduto.query.get(id)
-    db.session.delete(produto)
-    db.session.commit()
-    flash('Produto excluído do estoque!')
-    return redirect(url_for('pesquisa'))
+def excluir_produto(id):
+    if request.method == 'POST':
+        produto = CadastroProduto.query.get(id)
+        db.session.delete(produto)
+        db.session.commit()
+        flash('Produto excluído do estoque!')
+    return redirect(url_for('main.pesquisa'))
 
 
 @bp.route("/venda", methods=['GET', 'POST'])

@@ -38,9 +38,9 @@
                         <td>
                             <div class="editar_produto">
                             <a href="{{ url_for('main.editar_produto', id=p.id)}}">Editar Produto</a>
-                                <!-- <form method="post" action="{{ url_for('main.excluir_produto', id=p.id)}}" onsubmit="return confirm('Deseja excluir este produto?')">
+                                <form method="POST" action="{{ url_for('main.excluir_produto', id=p.id) }}" onsubmit="return confirm('Deseja excluir este produto?');">
                                     <button type="submit" class="btn btn-danger">Excluir Produto</button>
-                                </form> -->
+                                </form>
                             </div>   
                         </td>
                     </tr>
