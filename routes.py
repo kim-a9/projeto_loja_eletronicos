@@ -9,7 +9,6 @@ from app import db
 # from db import db
 # from schemas import CadastroProdutoSchema, EditarProdutoSchema
 
-
 bp = Blueprint('main', __name__)
 
 @bp.route("/")
@@ -61,37 +60,39 @@ def editar_produto(id):
     produto = CadastroProduto.query.get(id)
     form = EditarProdutoForm()
     if form.is_submitted() and form.validate():
-        produto.codigoprod = form.codigoprod.data
-        produto.produto = form.produto.data
-        produto.categoria = form.categoria.data
-        produto.quantidade = form.quantidade.data
-
         try:
-            db.session.commit()
-            flash('Produto editado!')
-            return redirect(url_for("main.pesquisa"))
+            produto.codigoprod = form.codigoprod.data
+            produto.produto = form.produto.data
+            produto.categoria = form.categoria.data
+            produto.quantidade = form.quantidade.data
+
+            if CadastroProduto.query.filter_by(produto=produto).first():
+                produto_exists = True
+                if produto_exists == True:
+                    db.session.add()
+                    db.session.commit()
+                    flash('Produto editado!')
+                    return redirect(url_for("main.pesquisa"))
+                else:
+                    codigoprod = form.codigoprod.data
+                    produto = form.produto.data
+                    categoria = form.categoria.data
+                    quantidade = form.quantidade.data
+
+                    cadastro = CadastroProduto(
+                        codigoprod=codigoprod,
+                        produto=produto,
+                        categoria=categoria,
+                        quantidade=quantidade
+                    )
+                    db.session.add(cadastro)
+                    db.session.commit()
+                    flash('Novo produto cadastrado!')
+                    return redirect(url_for("main.pesquisa"))
         except KeyError:
             abort(400, message="Erro ao atualizar produto. Por favor, verifique os campos preenchidos.")
             return render_template("editar_produto.html", form=form, produto=produto)
-        
                             #upsert. Se um produto já existe, ele é atualizado. Se não, ele é criado.
-    # if CadastroProduto.query.filter_by(produto=produto).first() != form.produto.data:
-    #     try:
-    #         codigoprod = form.codigoprod.data
-    #         produto = form.produto.data
-    #         categoria = form.categoria.data
-    #         quantidade = form.quantidade.data
-
-    #         cadastro = CadastroProduto(
-    #             codigoprod=codigoprod,
-    #             produto=produto,
-    #             categoria=categoria,
-    #             quantidade=quantidade
-    #         )
-    #         db.session.add(cadastro)
-    #         db.session.commit()
-    #         flash('Novo produto cadastrado!')
-    #         return redirect(url_for("main.pesquisa"))
     #     except KeyError:
     #         abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
     return render_template("editar_produto.html", form=form, produto=produto)
