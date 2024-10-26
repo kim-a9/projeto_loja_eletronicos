@@ -11,15 +11,14 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
           <div class="container"> <p class="Main">Estokey</p> </div>
     </header>
-    <!-- <div class="container-content"> -->
+    <div class="container-content">
         <h1>Pesquisa de Produtos</h1>
         <br>
-        
-            
-            <!-- <label for="pesquisa_codigo">Pesquisar por nome do produto: </label>
-            <input type="text" name="pesquisa">
-            <input type="submit" value="Buscar"> -->
-        </form>
+        <p>
+            {{ form.produto.label }}<br>
+            {{ form.produto(size=20) }}
+        </p>
+        <p>{{ form.submit() }}</p>
         <br><br>
         
     <table class="resultado-pesquisa">

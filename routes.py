@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
 from sqlalchemy import text
+from sqlalchemy.dialects.sqlite import insert
+# import sqlalchemy.orm
 from forms import CadastroForm, PesquisaForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
 from app import db
@@ -49,7 +51,7 @@ def cadastro():
 @bp.route("/pesquisa", methods=['GET', 'POST'])
 def pesquisa():
     form = PesquisaForm()
-    produtos = CadastroProduto.query.all()
+    produtos = CadastroProduto.query.all() 
     if not produtos:
         flash(400, message='Nenhum produto cadastrado ainda!')
         return redirect(url_for('main.pesquisa'))
@@ -66,29 +68,53 @@ def editar_produto(id):
             produto.categoria = form.categoria.data
             produto.quantidade = form.quantidade.data
 
-            if CadastroProduto.query.filter_by(produto=produto).first():
-                produto_exists = True
-                if produto_exists == True:
-                    db.session.add()
-                    db.session.commit()
-                    flash('Produto editado!')
-                    return redirect(url_for("main.pesquisa"))
-                else:
-                    codigoprod = form.codigoprod.data
-                    produto = form.produto.data
-                    categoria = form.categoria.data
-                    quantidade = form.quantidade.data
+            if CadastroProduto.query.filter_by(codigoprod=form.codigoprod.data).first():
+                db.session.commit()
+                flash('Produto editado!')
+                return redirect(url_for("main.pesquisa"))
+            else: 
+                # codprod = CadastroProduto.query.get(produto.codigoprod)
+                # if form.codigoprod.data != codprod:
+                codigoprod = form.codigoprod.data
+                produto = form.produto.data
+                categoria = form.categoria.data
+                quantidade = form.quantidade.data
 
-                    cadastro = CadastroProduto(
-                        codigoprod=codigoprod,
-                        produto=produto,
-                        categoria=categoria,
-                        quantidade=quantidade
-                    )
-                    db.session.add(cadastro)
-                    db.session.commit()
-                    flash('Novo produto cadastrado!')
-                    return redirect(url_for("main.pesquisa"))
+                cadastro = CadastroProduto(
+                    codigoprod=codigoprod,
+                    produto=produto,
+                    categoria=categoria,
+                    quantidade=quantidade
+                )
+                db.session.add(cadastro)
+                db.session.commit()
+                flash('Novo produto cadastrado!')
+                return redirect(url_for("main.pesquisa"))
+            
+
+            # if CadastroProduto.query.filter_by(codigoprod=codigoprod).first():
+            #     produto_exists = True
+            #     if produto_exists == True:
+            #         db.session.add()
+            #         db.session.commit()
+            #         flash('Produto editado!')
+            #         return redirect(url_for("main.pesquisa"))
+            #     else:
+            #         codigoprod = form.codigoprod.data
+            #         produto = form.produto.data
+            #         categoria = form.categoria.data
+            #         quantidade = form.quantidade.data
+
+            #         cadastro = CadastroProduto(
+            #             codigoprod=codigoprod,
+            #             produto=produto,
+            #             categoria=categoria,
+            #             quantidade=quantidade
+            #         )
+            #         db.session.add(cadastro)
+            #         db.session.commit()
+            #         flash('Novo produto cadastrado!')
+            #         return redirect(url_for("main.pesquisa"))
         except KeyError:
             abort(400, message="Erro ao atualizar produto. Por favor, verifique os campos preenchidos.")
             return render_template("editar_produto.html", form=form, produto=produto)
