@@ -1,3 +1,4 @@
+from dataclasses import fields
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
 from sqlalchemy import text
@@ -136,20 +137,24 @@ def excluir_produto(id):
 @bp.route("/venda", methods=['GET', 'POST'])
 def venda():
     form = VendasForm()
-    # if form.is_submitted() and form.validate():
-    #     try:
-    #         if form.qtd.data >= 1:
-    #             CadastroProduto.quantidade -= form.qtd.data
-    #             flash('Venda realizada com sucesso!')
-    #             return redirect(url_for("main.venda"))
-    #         else:
-    #             abort(400, message="Verifique o campo 'Quantidade'.")
-    #     except KeyError:
-    #         abort(400, message="Verifique a quantidade em estoque.")
-    #         return  render_template("venda.html", form=form)
-
-    #     return redirect(url_for('home'))
-    return render_template('venda.html', form=form)
+    produto = CadastroProduto.query.all()
+    if request.method == 'POST': 
+        codprod = request.form.get("codigoprod","")
+        cp = CadastroProduto.query.filter_by(codigoprod=codprod).first()
+        if codprod > cp.quantidade:
+            flash('Estoque insuficiente para a venda!')
+        
+        cp.quantidade = int(cp.quantidade - int(form.qtd.data))
+        CadastroProduto.query.filter_by(codigoprod=codprod).update(dict(quantidade=cp.quantidade))
+        try:
+            db.session.commit()
+            flash('Venda realizada com sucesso!')
+            return redirect(url_for("main.home"))
+        except KeyError:
+                flash("Verifique a quantidade em estoque.")
+    else: 
+        flash("Verifique os campos preenchidos. ")
+    return render_template('venda.html', form=form, produto=produto)
 
 @bp.route("/relatorio", methods=['GET', 'POST'])
 def relatorio():

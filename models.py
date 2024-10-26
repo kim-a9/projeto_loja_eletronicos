@@ -9,5 +9,11 @@ class CadastroProduto(db.Model):
     categoria = db.Column(db.String(50))
     quantidade = db.Column(db.Integer)
 
+    @classmethod
+    def find_by_cod(self):
+        return f"CadastroProduto('{self.codigoprod}')"
+
+
+
     def __repr__(self):
         return f"CadastroProduto('{self.codigoprod}', '{self.produto}', '{self.quantidade}')"
