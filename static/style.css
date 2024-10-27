@@ -58,7 +58,11 @@ th {
     background-color: whitesmoke;
     padding: 40px;
 }
-.resultado-pesquisa{
+td {
+    align-items: center;
+    text-align: center;
+}
+.resultado-consulta{
     padding: 10;
 }
 .voltar{

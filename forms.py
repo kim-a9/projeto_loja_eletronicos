@@ -9,9 +9,9 @@ class CadastroForm(FlaskForm):
     quantidade = IntegerField('Quantidade:')
     submit = SubmitField('Cadastrar')
 
-class PesquisaForm(FlaskForm):
-    produto = StringField('Pesquisar por nome do produto: ', validators=[DataRequired()])
-    submit = SubmitField('Buscar')
+# class ConsultaForm(FlaskForm):
+#     produto = StringField('Pesquisar por nome do produto: ', validators=[DataRequired()])
+#     submit = SubmitField('Buscar')
 
 class EditarProdutoForm(FlaskForm):
     codigoprod = IntegerField('Código')
