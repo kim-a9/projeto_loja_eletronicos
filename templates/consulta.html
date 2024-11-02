@@ -23,9 +23,12 @@
                 <th>Código</th> <th>Produto</th> <th>Quantidade</th>
             </tr>
         </thead>
+        
         <tbody>
+            
             {% if produtos %}
                 {% for p in produtos %}
+                <div class="div-scroll">
                     <tr>
                         <td>{{ p.codigoprod }}</td>
                         <td>{{ p.produto }}</td>
@@ -39,8 +42,10 @@
                             </div>   
                         </td>
                     </tr>
+                </div>    
                 {% endfor %}
             {% endif %} 
+            
         </tbody>
     </table>
           

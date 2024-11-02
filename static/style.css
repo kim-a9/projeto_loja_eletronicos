@@ -63,9 +63,28 @@ td {
     text-align: center;
 }
 .resultado-consulta{
-    padding: 10;
+    padding: 10px 20px;
+    max-height: 50px;
+    justify-content: center;
+    align-items: center;
 }
 .voltar{
     padding-right: 15px;
+
+}
+.div-scroll{
+    display: block;
+    max-height: 20px;
+    overflow: scroll;
+    overflow-y:scroll;
+    width: 5px;
+    height: 5px;
     
+}
+tbody{
+    /* position: fixed; */
+    
+    width: 5px;
+    margin: 0 auto;
+    white-space: nowrap;
 }
