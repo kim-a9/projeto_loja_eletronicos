@@ -38,12 +38,11 @@ def cadastro():
                 categoria=categoria,
                 quantidade=quantidade
             )
-
             db.session.add(cadastro)
             db.session.commit()
 
             flash('Produto cadastrado com sucesso!')
-            return redirect(url_for('main.home'))
+            return redirect(url_for('main.cadastro'))
         except KeyError:
             abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
 
@@ -57,8 +56,8 @@ def consulta():
         return redirect(url_for('main.consulta'))
     return render_template('consulta.html', produtos=produtos)
 
-@bp.route("/editar_produto/<int:id>", methods=["GET", "POST"])
-def editar_produto(id):
+@bp.route("/editar_produto/<int:id>,<int:codigoprod>", methods=["GET", "POST"])
+def editar_produto(id, codigoprod):
     produto = CadastroProduto.query.get(id)
     form = EditarProdutoForm()
 
@@ -66,41 +65,42 @@ def editar_produto(id):
     # https://github.com/marination/Inventory-Manager/blob/master/flaskinventory/routes.py
 
     if form.is_submitted() and form.validate():
-        # try:
-        #     produto.codigoprod = form.codigoprod.data
-        #     produto.produto = form.produto.data
-        #     produto.categoria = form.categoria.data
-        #     produto.quantidade = form.quantidade.data
+        try:
+            produto.codigoprod = form.codigoprod.data
+            produto.produto = form.produto.data
+            produto.categoria = form.categoria.data
+            produto.quantidade = form.quantidade.data
 
-        #     if CadastroProduto.query.filter_by(codigoprod=codigoprod).first():
-        #         db.session.commit()
-        #         flash('Produto editado!')
-        #         return redirect(url_for("main.consulta"))
-        #                     #upsert. Se um produto já existe, ele é atualizado. Se não, ele é criado.
-        #     else: 
-        #         codigoprod = form.codigoprod.data
-        #         produto = form.produto.data
-        #         categoria = form.categoria.data
-        #         quantidade = form.quantidade.data
+            if CadastroProduto.query.filter_by(codigoprod=codigoprod).first(): 
+                codigoprod = form.codigoprod.data
+                produto = form.produto.data
+                categoria = form.categoria.data
+                quantidade = form.quantidade.data
 
-        #         cadastro = CadastroProduto(
-        #             codigoprod=codigoprod,
-        #             produto=produto,
-        #             categoria=categoria,
-        #             quantidade=quantidade
-        #         )
-        #         db.session.add(cadastro)
-        #         try:
-        #             db.session.commit()
-        #             flash('Novo produto cadastrado!')
-        #             return redirect(url_for("main.consulta"))
-        #         except Exception as e:
-        #             flash(f"Ocorreu um erro: {str(e)}", "error")
-        #             db.session.rollback()
-        # except KeyError:
-        #     abort(400, message="Erro ao atualizar produto. Por favor, verifique os campos preenchidos.")
-        #     return render_template("editar_produto.html", form=form, produto=produto)
-        return render_template("editar_produto.html", form=form, produto=produto)
+                cadastro = CadastroProduto(
+                    codigoprod=codigoprod,
+                    produto=produto,
+                    categoria=categoria,
+                    quantidade=quantidade
+                )
+                db.session.commit()
+                flash('Produto editado!')
+                return redirect(url_for("main.consulta"))
+                            #upsert. Se um produto já existe, ele é atualizado. Se não, ele é criado.
+            
+                
+            try:
+                db.session.add(cadastro)
+                db.session.commit()
+                flash('Novo produto cadastrado!')
+                return redirect(url_for("main.editar_produto"))
+            except Exception as e:
+                flash(f"Ocorreu um erro: {str(e)}", "error")
+                db.session.rollback()
+        except KeyError:
+            abort(400, message="Erro ao atualizar produto. Por favor, verifique os campos preenchidos.")
+            return render_template("editar_produto.html", form=form, produto=produto)
+    return render_template("editar_produto.html", form=form, produto=produto)
 
 @bp.route("/excluir/<int:id>", methods=["POST"])
 def excluir_produto(id):
@@ -125,12 +125,11 @@ def venda():
             
             db.session.commit()
             flash('Venda realizada com sucesso!')
-            return redirect(url_for("main.home"))
+            return redirect(url_for("main.venda"))
         except Exception as e:
             flash(f"Ocorreu um erro: {str(e)}", "error")
             db.session.rollback()
-    else: 
-        flash("Verifique os campos preenchidos. ")
+
     return render_template('venda.html', form=form, produto=produto)
 
 @bp.route("/relatorio", methods=['GET', 'POST'])

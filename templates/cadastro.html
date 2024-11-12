@@ -18,7 +18,7 @@
         {% if messages %}
             <ul>
             {% for message in messages %}
-                <li><strong> {{message}} </strong></li>
+                <li class="flash-msg"><strong> {{message}} </strong></li>
             {% endfor %}
             </ul>
         {% endif %}
@@ -43,10 +43,10 @@
             {{ form.quantidade(size=15) }}
         </p> 
         <br><br>
-        <p>{{ form.submit() }}</p>
+        <button class="btn-add">{{ form.submit(class="btn-add") }}</button>
     </form>
     </div>
-    
+
 </body>
 </html>
 

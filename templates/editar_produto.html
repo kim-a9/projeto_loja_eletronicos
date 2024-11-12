@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>Alterar produto</title>
+    <title>Editar produto</title>
 </head>
 <body>
     <header class="site-header">
@@ -12,8 +12,18 @@
           <div class="container"> <p class="Main">Estokey</p> </div>
     </header>
     <div class="container-content">
-    <h1>Alterar Produto</h1>
+    <h1>Editar Produto</h1>
     <br><br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li class="flash-msg"><strong> {{message}} </strong></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <br>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
@@ -32,8 +42,8 @@
             {{ form.quantidade.label }}<br>
             {{ form.quantidade(size=20) }}
         </p>
-        <br><br>
-        <button type ="submit">Alterar</button>
+        <br><br> 
+        <button class="btn-add">{{ form.submit(class="btn-add") }}</button>
     </form>
 </div>
 </body>

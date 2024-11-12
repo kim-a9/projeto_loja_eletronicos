@@ -15,37 +15,44 @@
     <div class="container-content">
         <h1>Consulta de Produtos</h1>
         <br>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>{% for message in messages %}
+            <li class="flash-msg"><strong> {{message}} </strong></li>
+            {% endfor %}
+        </ul> 
+        {% endif %}
+        {% endwith %}
         <br><br>
-        
     <table class="resultado-consulta">
         <thead>
             <tr>
-                <th>Código</th> <th>Produto</th> <th>Quantidade</th>
+                <th>Código</th> <th>Produto</th> <th>Quantidade</th> <th>Opções</th>
             </tr>
         </thead>
         
         <tbody>
-            
+        <div class="div-scroll">   
             {% if produtos %}
                 {% for p in produtos %}
-                <div class="div-scroll">
                     <tr>
                         <td>{{ p.codigoprod }}</td>
                         <td>{{ p.produto }}</td>
                         <td>{{ p.quantidade }}</td>
                         <td>
-                            <div class="editar_produto">
-                            <a href="{{ url_for('main.editar_produto', id=p.id)}}">Editar Produto</a>
-                                <form method="POST" action="{{ url_for('main.excluir_produto', id=p.id) }}" onsubmit="return confirm('Deseja excluir este produto?');">
-                                    <button type="submit" class="btn btn-danger">Excluir Produto</button>
+                            <div class="editar-produto">
+                                <button type="button"  class="btn-edit">
+                                    <a href="{{ url_for('main.editar_produto', id=p.id, codigoprod=p.codigoprod) }}" class="btn-edit">Editar</a>
+                                </button>
+                                <form method="POST" class="btn-delete" action="{{ url_for('main.excluir_produto', id=p.id) }}" onsubmit="return confirm('Deseja excluir este produto?');">
+                                    <button type="submit" class="btn-delete">Excluir</button>
                                 </form>
-                            </div>   
+                            </div>
                         </td>
                     </tr>
-                </div>    
                 {% endfor %}
             {% endif %} 
-            
+        </div>    
         </tbody>
     </table>
           
