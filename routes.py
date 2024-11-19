@@ -1,16 +1,11 @@
 from dataclasses import fields
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
-# from sqlalchemy import text
-# from sqlalchemy.dialects.sqlite import insert
-# import sqlalchemy.orm
+
 from forms import CadastroForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
 from app import db
 
-# from models import CadastroProduto
-# from db import db
-# from schemas import CadastroProdutoSchema, EditarProdutoSchema
 
 bp = Blueprint('main', __name__)
 
@@ -61,9 +56,6 @@ def editar_produto(id, codigoprod):
     produto = CadastroProduto.query.get(id)
     form = EditarProdutoForm()
 
-    # CONSULTAR POR UPSERT AQUI:
-    # https://github.com/marination/Inventory-Manager/blob/master/flaskinventory/routes.py
-
     if form.is_submitted() and form.validate():
         try:
             produto.codigoprod = form.codigoprod.data
@@ -85,9 +77,7 @@ def editar_produto(id, codigoprod):
                 )
                 db.session.commit()
                 flash('Produto editado!')
-                return redirect(url_for("main.consulta"))
-                            #upsert. Se um produto já existe, ele é atualizado. Se não, ele é criado.
-            
+                return redirect(url_for("main.consulta"))            
                 
             try:
                 db.session.add(cadastro)
