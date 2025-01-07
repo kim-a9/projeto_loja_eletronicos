@@ -1,0 +1,13 @@
+th {
+    font-size: large;
+    background-color: whitesmoke;
+    padding: 40px;
+}
+td {
+    align-items: center;
+    text-align: center;
+}
+tr {
+    background-color: whitesmoke;
+    text-decoration: none;
+}

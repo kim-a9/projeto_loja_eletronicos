@@ -2,12 +2,11 @@ from flask import Flask
 from flask_smorest import Api
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
 from sqlalchemy.orm import * 
-
-# import logging 
 import psycopg2
 import os
+
+# import logging 
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -29,6 +28,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://postgres:1234@localhost:5432/projeto_estokey"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['PROPAGATE_EXCEPTIONS'] = True
+    app.config['PDF_FOLDER'] = 'static/pdf/'
+    app.config['TEMPLATE_FOLDER'] = 'templates/relatorio'
 
     db_params = {
         'dbname': 'projeto_estokey',

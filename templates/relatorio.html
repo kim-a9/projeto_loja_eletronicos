@@ -3,10 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='relatorio.css') }}">
+
     <title>Relatório de Vendas</title>
 
 </head>
 <body>
-    
+    <table>
+        <thead>
+            <tr>
+                <th>Produto</th> <th>Quantidade</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+        <div>   
+            {% if produtos %}
+                {% for p in qnt %}
+                    <tr>
+                        <td>{{ p.produto }}</td>
+                        <td>{{ p.quantidade }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %} 
+        </div>    
+        </tbody>
+    </table>
+    <p>Total de Produtos: {{ totalprod }} </p>
 </body>
 </html>
