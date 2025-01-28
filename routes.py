@@ -4,8 +4,8 @@ from flask_smorest import abort
 import pdfkit
 from forms import CadastroForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
-from app import db
-
+import db
+import pdf
 
 bp = Blueprint('main', __name__)
 
@@ -51,7 +51,7 @@ def consulta():
         return redirect(url_for('main.consulta'))
     return render_template('consulta.html', produtos=produtos)
 
-@bp.route("/editar_produto/<int:id>,<int:codigoprod>", methods=["GET", "POST"])
+@bp.route("/editar_produto/<int:id>,<int:codigoprod>", methods=['GET', 'POST'])
 def editar_produto(id, codigoprod):
     produto = CadastroProduto.query.get(id)
     form = EditarProdutoForm()
@@ -91,7 +91,7 @@ def editar_produto(id, codigoprod):
             return render_template("consulta.html", produtos=produtos)
     return render_template("editar_produto.html", form=form, produto=produto)
 
-@bp.route("/excluir/<int:id>", methods=["POST"])
+@bp.route("/excluir/<int:id>", methods=['POST'])
 def excluir_produto(id):
     if request.method == 'POST':
         produto = CadastroProduto.query.get(id)
@@ -99,7 +99,6 @@ def excluir_produto(id):
         db.session.commit()
         flash('Produto excluído do estoque!')
     return redirect(url_for('main.consulta'))
-
 
 @bp.route("/venda", methods=['GET', 'POST'])
 def venda():
@@ -130,13 +129,14 @@ def relatorio():
     qnt_report = [{"produto": p.produto, "quantidade": p.quantidade} for p in qnt]
 
     try:
-        r = render_template('relatorio.html', totalprod=totalprod, produtos=produtos, qnt=qnt, qnt_report=qnt_report)
+        novo_pdf = pdf.create_pdf('relatorio.html')
         css = ['static/relatorio.css']
-        pdf = pdfkit.from_string(r, False, css=css)
+        # r = pdfkit.from_string(novo_pdf, False, css=css)
 
-        response = make_response(pdf)
-        response.headers['Content-Type'] = 'application/pdf'
+        response = make_response(novo_pdf)
         response.headers['Content-Disposition'] = f'attachment; filename="relatorio.pdf"'
+        response.headers['Content-Type'] = 'application/pdf'
+        print(novo_pdf)
         return response
     except Exception:
         flash(f'Não foi possível gerar o relatório')

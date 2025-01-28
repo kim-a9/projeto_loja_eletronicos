@@ -6,14 +6,10 @@ from sqlalchemy.orm import *
 import psycopg2
 import os
 
-# import logging 
 
 # basedir = os.path.abspath(os.path.dirname(__file__))
 
 db = SQLAlchemy()
-
-
-# db_url=None
 
 
 def create_app():  
@@ -53,8 +49,6 @@ def create_app():
 
     from routes import bp
     app.register_blueprint(bp)
-
-
 
 
     return app
