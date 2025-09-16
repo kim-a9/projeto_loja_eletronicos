@@ -3,7 +3,8 @@ body {
     color: #333333;
 }
 h1, h2, h3 {
-    padding-left: 20px;    
+    /* padding-left: 20px;     */
+    text-align: center;
     color: #444444;
 }
 form {
@@ -17,6 +18,7 @@ a {
 p {
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 header {
@@ -41,17 +43,17 @@ header {
 }
 
 .container-content {
-margin-top: 15%;
-margin-left: 15%;
-margin-right: 15%;
-margin-bottom: 25%;
-padding-top: 10px;
-padding-bottom: 10px;
-padding-left: 40px;
-text-align: justify;
-background: #ffffff;
-border: 1px solid #dddddd;
-border-radius: 3px;
+    margin-top: 15%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 25%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    text-align: justify;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
 }
 
 label{
@@ -98,7 +100,7 @@ tbody{
     margin: 0 auto;
     white-space: nowrap;
 }
- .btn{
+.btn{
      font-family: Arial, Helvetica, sans-serif;
  }
 .btn-edit {
@@ -131,8 +133,8 @@ tbody{
 .btn-add  {
     position: relative;
     display:inline-flex;
-    /* padding: 2px 8px; */
-    /* margin-bottom: 5px; */
+    padding: 2px 8px;
+    margin-bottom: 5px;
     background-color: #337ab7;
     color: white;
     font-size: 16px;
@@ -140,6 +142,7 @@ tbody{
     border-style:none;
     border-radius: 3px;
     margin-right: 5px;
+    
 }
 .editar-produto{
     display: flex;
@@ -148,4 +151,8 @@ tbody{
 .flash-msg{
     color: #333333;
     line-height: 2;
+}
+
+div{
+    text-align: center;
 }

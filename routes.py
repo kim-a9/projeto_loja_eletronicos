@@ -5,7 +5,6 @@ import pdfkit
 from forms import CadastroForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
 import db
-import pdf
 
 bp = Blueprint('main', __name__)
 
@@ -120,26 +119,3 @@ def venda():
 
     return render_template('venda.html', form=form, produto=produto)
 
-@bp.route("/relatorio", methods=['GET', 'POST'])
-def relatorio():
-    totalprod = CadastroProduto.query.count()
-    produtos = CadastroProduto.query.order_by(CadastroProduto.codigoprod)
-    qnt = CadastroProduto.query.filter_by(quantidade='0').all()
-
-    qnt_report = [{"produto": p.produto, "quantidade": p.quantidade} for p in qnt]
-
-    try:
-        novo_pdf = pdf.create_pdf('relatorio.html')
-        css = ['static/relatorio.css']
-        # r = pdfkit.from_string(novo_pdf, False, css=css)
-
-        response = make_response(novo_pdf)
-        response.headers['Content-Disposition'] = f'attachment; filename="relatorio.pdf"'
-        response.headers['Content-Type'] = 'application/pdf'
-        print(novo_pdf)
-        return response
-    except Exception:
-        flash(f'Não foi possível gerar o relatório')
-        return redirect(url_for('main.home'))
-
-    # return render_template('relatorio.html', totalprod=totalprod, produtos=produtos, qnt=qnt, qnt_report=qnt_report)

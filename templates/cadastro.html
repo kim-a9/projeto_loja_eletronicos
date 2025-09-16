@@ -12,7 +12,7 @@
           <div class="container"> <p class="Main">Estokey</p> </div>
     </header>
     <div class="container-content">
-    <h1>Adicionar Produto</h1>
+    <h1>Cadastrar Produto</h1>
     <br><br>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -43,7 +43,9 @@
             {{ form.quantidade(size=15) }}
         </p> 
         <br><br>
+        <div>
         <button class="btn-add">{{ form.submit(class="btn-add") }}</button>
+        </div>
     </form>
     </div>
 
