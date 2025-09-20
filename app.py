@@ -21,7 +21,7 @@ def create_app():
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger"
     app.config["CSRF_ENABLED"] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://postgres:1234@localhost:5432/projeto_estokey"
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:1234@localhost:5432/projeto_estokey'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['PROPAGATE_EXCEPTIONS'] = True
     app.config['PDF_FOLDER'] = 'static/pdf/'
@@ -35,12 +35,12 @@ def create_app():
         'port': '5432'
     }
     try:
-        # Estabelece a conexão
         connection = psycopg2.connect(**db_params)
         if connection:
             print("Conexão estabelecida com sucesso!")
     except psycopg2.Error as error:
         print("Erro ao conectar ao PostgreSQL:", error)
+
 
     api = Api(app)
     
@@ -49,6 +49,8 @@ def create_app():
 
     from routes import bp
     app.register_blueprint(bp)
+
+    
 
 
     return app

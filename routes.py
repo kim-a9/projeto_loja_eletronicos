@@ -1,12 +1,14 @@
 from dataclasses import fields
-from flask import Blueprint, make_response, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_smorest import abort
-import pdfkit
 from forms import CadastroForm, EditarProdutoForm, VendasForm
 from models import CadastroProduto
-import db
+from flask_sqlalchemy import SQLAlchemy
+from app import db
+
 
 bp = Blueprint('main', __name__)
+
 
 @bp.route("/")
 def home():
@@ -76,7 +78,8 @@ def editar_produto(id, codigoprod):
                 )
                 db.session.commit()
                 flash('Produto editado!')
-                redirect(url_for("main.consulta"))            
+                redirect(url_for("main.consulta"))    
+
                 try:
                     db.session.add(cadastro)
                     db.session.commit()
