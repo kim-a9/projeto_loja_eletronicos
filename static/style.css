@@ -118,7 +118,7 @@ tbody{
    }
 .btn-delete {
     position: relative;
-    /* display: inline-block; */
+    display: inline-block;
     padding: 2px 8px;
     padding-top: 0;
     padding-bottom: 0;
@@ -130,9 +130,10 @@ tbody{
     border-radius: 3px;
     margin-left: 5px;
     }
-.btn-add  {
-    position: relative;
-    display:inline-flex;
+
+.btn-add {
+    /* position:relative; */
+    /* display:inline-flex; */
     padding: 2px 8px;
     margin-bottom: 5px;
     background-color: #337ab7;
@@ -157,7 +158,20 @@ div{
     text-align: center;
 }
 
+.btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.montserrat-font {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
 .form-container {
-    width: 400px; /* Adjust the width value as needed */
-    margin: 50px auto; /* Center the form horizontally */
+    width: 400px; 
+    margin: 50px auto; 
 }
