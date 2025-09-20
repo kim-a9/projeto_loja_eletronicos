@@ -156,3 +156,8 @@ tbody{
 div{
     text-align: center;
 }
+
+.form-container {
+    width: 400px; /* Adjust the width value as needed */
+    margin: 50px auto; /* Center the form horizontally */
+}
