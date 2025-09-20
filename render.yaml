@@ -6,3 +6,6 @@ services:
   startCommand: "flask run"
   plan: free
   region: oregon
+  envVars:
+  - key: PORT
+    value: 10000
