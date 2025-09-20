@@ -48,11 +48,8 @@
             <button class="btn-add montserrat-font">{{ form.submit(class="btn-add") }}</button>
         </div>
         
-
-    </form>
-    </div>
-
-    <!-- {% with messages = get_flashed_messages() %}
+        
+    {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
             {% for message in messages %}
@@ -60,7 +57,10 @@
             {% endfor %}
             </ul>
         {% endif %}
-    {% endwith %} -->
+    {% endwith %}
+
+    </form>
+    </div>
 
 </body>
 </html>
