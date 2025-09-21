@@ -3,7 +3,7 @@ services:
   runtime: "python"
   name: projeto_loja_eletronicos
   buildCommand: "pip install -r requirements.txt"
-  startCommand: "gunicorn app:create_app() --bind 0.0.0.0:$PORT"
+  startCommand: "gunicorn app:create_app --bind 0.0.0.0:$PORT"
   plan: free
   region: oregon
   envVars:
