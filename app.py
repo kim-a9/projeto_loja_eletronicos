@@ -21,7 +21,7 @@ def create_app():
     app.config["OPENAPI_URL_PREFIX"] = "/"
     app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger"
     app.config["CSRF_ENABLED"] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgre:xAswH0DHiwiL94kLf9jK3aun66hoMpQh@dpg-d37iun8gjchc73cb2g4g-a/cadastro_produto'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgre:xAswH0DHiwiL94kLf9jK3aun66hoMpQh@dpg-d37iun8gjchc73cb2g4g-a.oregon-postgres.render.com/cadastro_produto'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['PROPAGATE_EXCEPTIONS'] = True
     app.config['PDF_FOLDER'] = 'static/pdf/'
