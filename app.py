@@ -32,8 +32,7 @@ def create_app():
         'user': 'postgres',
         'password': '1234',
         'host': 'localhost',
-        'post': '10000'
-        # 'port': '5432'
+        'port': '5432'
     }
     try:
         connection = psycopg2.connect(**db_params)
