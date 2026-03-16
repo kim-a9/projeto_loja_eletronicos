@@ -59,42 +59,32 @@ def consulta():
 @bp.route("/editar_produto/<int:id>,<int:codigoprod>", methods=['GET', 'POST'])
 def editar_produto(id, codigoprod):
     produto = CadastroProduto.query.get(id)
-    form = EditarProdutoForm()
+    form = EditarProdutoForm(obj=produto)
 
     if form.is_submitted() and form.validate():
+        outroprod = CadastroProduto.query.filter(
+            CadastroProduto.codigoprod == form.codigoprod.data,
+            CadastroProduto.id != id).first()
+        
+        if outroprod: 
+            flash(f'O código {form.codigoprod.data} já está em uso', 'danger')
+            return render_template("editar_produto.html", form=form, produto=produto)
+        
         try:
             produto.codigoprod = form.codigoprod.data
             produto.produto = form.produto.data
             produto.categoria = form.categoria.data
             produto.quantidade = form.quantidade.data
 
-            if CadastroProduto.query.filter_by(codigoprod=codigoprod).first(): 
-                codigoprod = form.codigoprod.data
-                produto = form.produto.data
-                categoria = form.categoria.data
-                quantidade = form.quantidade.data
+            
+            db.session.commit()
+            flash('Produto editado!', 'success')
+            return redirect(url_for("main.consulta"))    
 
-                cadastro = CadastroProduto(
-                    codigoprod=codigoprod,
-                    produto=produto,
-                    categoria=categoria,
-                    quantidade=quantidade
-                )
-                db.session.commit()
-                flash('Produto editado!')
-                redirect(url_for("main.consulta"))    
-
-                try:
-                    db.session.add(cadastro)
-                    db.session.commit()
-                    flash('Novo produto cadastrado!')
-                    redirect(url_for("main.consulta"))
-                except Exception as e:
-                    flash(f"Ocorreu um erro: {str(e)}", "error")
-                    db.session.rollback()
-        except KeyError:
-            abort(400, message="Erro ao atualizar produto. Por favor, verifique os campos preenchidos.")
-            return render_template("consulta.html", produtos=produtos)
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Ocorreu um erro ao salvar: {str(e)}", "danger")
+         
     return render_template("editar_produto.html", form=form, produto=produto)
 
 @bp.route("/excluir/<int:id>", methods=['POST'])
@@ -103,7 +93,7 @@ def excluir_produto(id):
         produto = CadastroProduto.query.get(id)
         db.session.delete(produto)
         db.session.commit()
-        flash('Produto excluído do estoque!')
+        flash('Produto excluído do estoque!', 'success')
     return redirect(url_for('main.consulta'))
 
 @bp.route("/venda", methods=['GET', 'POST'])
@@ -111,18 +101,24 @@ def venda():
     form = VendasForm()
     produto = CadastroProduto.query.all()
     if request.method == 'POST': 
+        produto = CadastroProduto.find_by_cod(form.codigoprod.data)
+        
+        if not produto: 
+            flash(f'Produto com código {form.codigoprod.data} não foi encontrado.', 'danger')
+            return render_template('venda.html', form=form)
+        
+        if produto.quantidade < form.qtd.data:
+            flash(f'Estoque insuficiente! Disponível: {produto.quantidade}', 'warning')
+            return render_template('venda.html', form=form)
+        
         try:
-            codprod = request.form.get("codigoprod","")
-            cp = CadastroProduto.query.filter_by(codigoprod=codprod).first()
-            cp.quantidade = int(cp.quantidade - int(form.qtd.data))
-            CadastroProduto.query.filter_by(codigoprod=codprod).update(dict(quantidade=cp.quantidade))
-            
+            produto.quantidade -= form.qtd.data
             db.session.commit()
-            flash('Venda realizada com sucesso!')
+            flash(f'Venda de {form.qtd.data} unidades de "{produto.produto}" registrada com sucesso!', 'success')
             return redirect(url_for("main.venda"))
         except Exception as e:
-            flash(f"Ocorreu um erro: {str(e)}", "error")
             db.session.rollback()
+            flash(f"Ocorreu um erro: {str(e)}", "error")
 
     return render_template('venda.html', form=form, produto=produto)
 

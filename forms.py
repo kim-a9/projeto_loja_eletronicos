@@ -10,7 +10,7 @@ class CadastroForm(FlaskForm):
     submit = SubmitField('Cadastrar')
 
 class EditarProdutoForm(FlaskForm):
-    codigoprod = IntegerField('Código: ')
+    codigoprod = IntegerField('Código: ', render_kw={'readonly':True})
     produto = StringField('Produto: ', validators=[DataRequired()])
     categoria = StringField('Categoria: ')
     quantidade = IntegerField('Quantidade: ', validators={DataRequired()})
