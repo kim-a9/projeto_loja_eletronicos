@@ -36,16 +36,3 @@ if __name__ == "__main__":
     app = create_app()
     app.run(debug=True)
 
-    # app.config['SECRET_KEY'] = 'admin123'
-    # app.config["API_TITLE"] = "Estokey"
-    # app.config["API_VERSION"] = "v1"
-    # app.config["OPENAPI_VERSION"] = "2.0.0"
-    # app.config["OPENAPI_URL_PREFIX"] = "/"
-    # app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger"'
-    # app.config["CSRF_ENABLED"] = True
-    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    # app.config['PROPAGATE_EXCEPTIONS'] = True
-    # app.config['PDF_FOLDER'] = 'static/pdf/'
-    # app.config['TEMPLATE_FOLDER'] = 'templates/relatorio'
-
-    
