@@ -24,8 +24,12 @@ def cadastro():
             categoria = form.categoria.data
             quantidade = form.quantidade.data
 
-            if CadastroProduto.query.filter_by(produto=produto).first(): 
-                flash('Este produto já foi cadastrado.')
+            if CadastroProduto.find_by_cod(codigoprod=form.codigoprod.data): 
+                flash('Já existe um produto com o código {form.codigoprod.data}.', 'danger')
+                return redirect(url_for("main.cadastro"))
+            
+            if CadastroProduto.query.filter_by(produto=form.produto.data).first(): 
+                flash('Este produto já foi cadastrado.', 'danger')
                 return redirect(url_for("main.cadastro"))
 
             cadastro = CadastroProduto(
@@ -36,11 +40,11 @@ def cadastro():
             )
             db.session.add(cadastro)
             db.session.commit()
-
             flash('Produto cadastrado com sucesso!')
             return redirect(url_for('main.cadastro'))
         except KeyError:
-            abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos.")
+            db.session.rollback()
+            abort(400, message="Erro ao cadastrar produto. Por favor, verifique os campos preenchidos. {str(e)}")
 
     return render_template("cadastro.html", form=form)
 
