@@ -2,55 +2,50 @@ from flask import Flask
 from flask_smorest import Api
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import * 
-import psycopg2
+from config import Config
+from sqlalchemy import create_engine
 import os
 
 
-# basedir = os.path.abspath(os.path.dirname(__file__))
-
 db = SQLAlchemy()
+migrate = Migrate()
 
 
-def create_app():  
+def create_app(config_class=Config):  
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'admin123'
-    app.config["API_TITLE"] = "Estokey"
-    app.config["API_VERSION"] = "v1"
-    app.config["OPENAPI_VERSION"] = "2.0.0"
-    app.config["OPENAPI_URL_PREFIX"] = "/"
-    app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger"
-    app.config["CSRF_ENABLED"] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgre:xAswH0DHiwiL94kLf9jK3aun66hoMpQh@dpg-d37iun8gjchc73cb2g4g-a.oregon-postgres.render.com/cadastro_produto'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['PROPAGATE_EXCEPTIONS'] = True
-    app.config['PDF_FOLDER'] = 'static/pdf/'
-    app.config['TEMPLATE_FOLDER'] = 'templates/relatorio'
+    app.config.from_object(config_class)
 
-    db_params = {
-        'dbname': 'projeto_estokey',
-        'user': 'postgres',
-        'password': '1234',
-        'host': 'localhost',
-        'port': '5432'
-    }
-    try:
-        connection = psycopg2.connect(**db_params)
-        if connection:
-            print("Conexão estabelecida com sucesso!")
-    except psycopg2.Error as error:
-        print("Erro ao conectar ao PostgreSQL:", error)
-
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     api = Api(app)
-    
-    db.init_app(app)
-    migrate = Migrate(app, db)
 
-    from routes import bp
-    app.register_blueprint(bp)
+    from routes import bp as main_bp
+    app.register_blueprint(main_bp)
 
-    
-
+    try:
+        engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+        with engine.connect() as conn:
+            print("Conexão estabelecida com sucesso!")
+    except Exception as error:
+        print("Erro ao conectar ao PostgreSQL:", error)
 
     return app
+
+if __name__ == "__main__":
+    app = create_app()
+    app.run(debug=True)
+
+    # app.config['SECRET_KEY'] = 'admin123'
+    # app.config["API_TITLE"] = "Estokey"
+    # app.config["API_VERSION"] = "v1"
+    # app.config["OPENAPI_VERSION"] = "2.0.0"
+    # app.config["OPENAPI_URL_PREFIX"] = "/"
+    # app.config["OPENAPI_SWAGGER_UI_PATH"] = "/swagger"'
+    # app.config["CSRF_ENABLED"] = True
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['PROPAGATE_EXCEPTIONS'] = True
+    # app.config['PDF_FOLDER'] = 'static/pdf/'
+    # app.config['TEMPLATE_FOLDER'] = 'templates/relatorio'
+
+    
